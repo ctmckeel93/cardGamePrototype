@@ -1,4 +1,5 @@
 const { Creature } = require('./Creature.js')
+const { Player } = require('./Player.js')
 const { Spell } = require('./Spell.js')
 // const { Creature } = require('./Creature.js')
 
@@ -6,21 +7,18 @@ const { Spell } = require('./Spell.js')
 
 class Battlefield {
     constructor(){
+        this.players = []
         this.main = []
         this.arena = []
         this.spells = []
     }
 
     addToField(card){
-        console.log(card)
-        const mainCap = 5 
-        const spellCap = 5
-        const arenaCap = 2
         console.log("Spell is a " + typeof(Spell))
         if ( card instanceof Spell  )
         {
             console.log("This is a spell")
-            if (card.isArena === true && this.arena.length < arenaCap){
+            if (card.isArena === true ){
                 this.arena.push(card)
             }
             if (this.spells.length < spellCap)
@@ -42,10 +40,19 @@ class Battlefield {
                 console.log("No main slots available")
             }
         }
+        else if (card instanceof Mana){
+
+        }
         else {
             console.log("Card not valid")
         }
+        return this 
+    }
 
+    startGame(numPlayers,){
+        for (let i = 1; i < numPlayers + 1; i++){
+            this.players.push(new Player("Player " + numPlayers ));
+        }
     }
 }
 
